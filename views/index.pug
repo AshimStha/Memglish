@@ -41,7 +41,7 @@ block main-content
     h2#memes_header Memes
     #image-container
       if memeData
-        //- each meme in memeData
-        //-   img(src=memeUrl)
+        each meme in memeData
+          img(src=memeUrl)
       else
         p No memes available!

@@ -39,32 +39,32 @@ app.get("/search", async (req, res) => {
     const word = req.query.word;
 
     // Creating options for meme API request
-    // const memeOptions = {
-    //   method: "GET",
-    //   url: "https://humor-jokes-and-memes.p.rapidapi.com/memes/search",
-    //   params: {
-    //     keywords: word,
-    //     "media-type": "image",
-    //     "keywords-in-image": "false",
-    //     "min-rating": "3",
-    //     number: "3",
-    //   },
-    //   headers: {
-    //     "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
-    //     "X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com",
-    //   },
-    // };
+    const memeOptions = {
+      method: "GET",
+      url: "https://humor-jokes-and-memes.p.rapidapi.com/memes/search",
+      params: {
+        keywords: word,
+        "media-type": "image",
+        "keywords-in-image": "false",
+        "min-rating": "3",
+        number: "3",
+      },
+      headers: {
+        "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
+        "X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com",
+      },
+    };
 
     // Making both API requests simultaneously
     const [wordResponse, memeResponse] = await axios.all([
       axios.get(
         `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${process.env.WEBSTER_API_KEY}`
       ),
-      // axios.request(memeOptions),
+      axios.request(memeOptions),
     ]);
 
     const wordData = wordResponse.data;
-    // const memeData = memeResponse.data;
+    const memeData = memeResponse.data;
 
     // console.log(memeData);
 
@@ -74,7 +74,7 @@ app.get("/search", async (req, res) => {
     const antList = wordData[0].meta.ants;
 
     // Extracting the memes details
-    // const memeUrl = memeData.url;
+    const memeUrl = memeData.url;
 
     // Rendering the index.pug template with both fetched data
     res.render("index", {
@@ -82,7 +82,7 @@ app.get("/search", async (req, res) => {
       shortDef: shortDef,
       synsList: synsList,
       antsList: antList,
-      // memeUrl: memeUrl,
+      memeUrl: memeUrl,
     });
   } catch (error) {
     console.error("Error fetching details:", error);
