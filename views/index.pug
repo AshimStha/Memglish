@@ -1,0 +1,47 @@
+extends layout 
+
+block main-content 
+  #index_container
+    h1#index_heading Dictionary and Memes
+
+    form(action="/search" method="get")
+      div#input_container
+        input#wordInput(type="text" name="word" placeholder="Try insect..." value=word)
+        input#search_index_btn(type="submit" value="Search Word") 
+
+    // Content displayed below the form
+    .content-below-form
+      // Display Definition
+      .syn-container
+        h2 Definition 
+        if shortDef 
+          p #{shortDef}
+        else 
+          p.error_text Please provide a word!
+
+      // Display Synonyms
+      .syn-container
+        h2 Synonyms
+        if synsList
+          each syn in synsList
+            p #{syn}
+        else
+          p.error_text No Synonyms available!
+
+      // Display Antonyms
+      .syn-container
+        h2 Antonym 
+        if antsList
+          each ant in antsList
+            p #{ant}
+        else
+          p.error_text No Antonyms available!
+
+    // New container for displaying images
+    h2#memes_header Memes
+    #image-container
+      if memeData
+        //- each meme in memeData
+        //-   img(src=memeUrl)
+      else
+        p No memes available!

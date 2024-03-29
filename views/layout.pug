@@ -1,0 +1,58 @@
+block variables 
+doctype html 
+html 
+  head
+    meta(charset="utf-8")
+    title #{title} | Memglish
+    block scripts 
+      link(rel="stylesheet" type="text/css" href="/styles.css")
+      // Remixicons link
+      link(href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet")
+
+  body
+    // The navigation menu section
+    header
+      // Logo
+      div#logo
+        a.web_logo(href='/') Memglish
+      div#links_section
+        // Navigation menu
+        nav#nav_menu
+          ul
+            li
+              a(href='/index') Home
+            li
+              a(href='/') About
+            li
+              a(href='#') Services
+        // buttons
+        div#nav_btns
+          a#signup_btn(href='#') Sign Up
+          a#user_btn(href='#') <i class="ri-user-3-fill"></i>
+
+    // The main content for the web
+    main#main 
+      block main-content 
+
+    // The footer section
+    footer
+      // The footer logo
+      .logo-left
+        p#ftr_logo_text Memglish
+
+      // Copyright text
+      .copyright-text
+        p#ftr-copy-text © Copyright Memglish. All Rights Reserved 2024.
+
+      // The footer contents
+      .ftr-socials
+        ul#ftr-socials-list
+          li.social-icon
+            a
+              i <i class="ri-facebook-circle-fill"></i>
+          li.social-icon
+            a
+              i <i class="ri-instagram-fill"></i>
+          li.social-icon
+            a
+              i <i class="ri-youtube-fill"></i>
