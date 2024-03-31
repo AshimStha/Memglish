@@ -41,8 +41,7 @@ block main-content
     h2#memes_header Memes
     #image-container
       if memeUrls && memeUrls.length > 0
-        #image-container
-          each url in memeUrls
-            img(src=url)
-          else
-            p No memes available!
+        each url in memeUrls
+          img(src=url)
+        else
+          p No memes available!
