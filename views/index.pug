@@ -6,7 +6,7 @@ block main-content
 
     form(action="/search" method="get")
       div#input_container
-        input#wordInput(type="text" name="word" placeholder="Try insect..." value=word)
+        input#wordInput(type="text" name="word" placeholder="Try searching insect..." value=word)
         input#search_index_btn(type="submit" value="Search Word") 
 
     // Content displayed below the form
@@ -40,8 +40,9 @@ block main-content
     // New container for displaying images
     h2#memes_header Memes
     #image-container
-      if memeData
-        each meme in memeData
-          img(src=memeUrl)
-      else
-        p No memes available!
+      if memeUrls && memeUrls.length > 0
+        #image-container
+          each url in memeUrls
+            img(src=url)
+          else
+            p No memes available!

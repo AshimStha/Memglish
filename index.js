@@ -47,7 +47,7 @@ app.get("/search", async (req, res) => {
         "media-type": "image",
         "keywords-in-image": "false",
         "min-rating": "3",
-        number: "3",
+        number: "4",
       },
       headers: {
         "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
@@ -64,7 +64,18 @@ app.get("/search", async (req, res) => {
     ]);
 
     const wordData = wordResponse.data;
-    const memeData = memeResponse.data;
+    // const memeData = memeResponse.data;
+
+    let memeUrls = [];
+
+    // Check if memeData has a 'memes' property that is an array
+    if (Array.isArray(memeResponse.data.memes)) {
+      // Extract meme URLs from memeData.memes
+      memeUrls = memeResponse.data.memes.map((meme) => meme.url);
+    } else {
+      // Handle case where memeData.memes is not an array
+      console.error("Invalid meme data:", memeResponse.data);
+    }
 
     // console.log(memeData);
 
@@ -73,16 +84,13 @@ app.get("/search", async (req, res) => {
     const synsList = wordData[0].meta.syns;
     const antList = wordData[0].meta.ants;
 
-    // Extracting the memes details
-    const memeUrl = memeData.url;
-
     // Rendering the index.pug template with both fetched data
     res.render("index", {
       word: word,
       shortDef: shortDef,
       synsList: synsList,
       antsList: antList,
-      memeUrl: memeUrl,
+      memeUrls: memeUrls,
     });
   } catch (error) {
     console.error("Error fetching details:", error);
